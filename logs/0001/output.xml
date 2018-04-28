@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180428 16:20:21.527" generator="Robot 3.0.2 (Python 2.7.14 on win32)">
+<suite source="C:\GIT_TEST" id="s1" name="GIT TEST">
+<suite source="C:\GIT_TEST\tests_booker" id="s1-s1" name="Tests Booker">
+<suite source="C:\GIT_TEST\tests_booker\test_suite_1.tsv" id="s1-s1-s1" name="Test Suite 1">
+<test id="s1-s1-s1-t1" name="checkIfApplicationResponse">
+<kw name="Ping Web Service" library="restfulBookerConnection">
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.870" level="INFO">200</msg>
+<msg timestamp="20180428 16:20:21.870" level="INFO">${response} = 200</msg>
+<status status="PASS" endtime="20180428 16:20:21.871" starttime="20180428 16:20:21.858"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+<arg>ERROR: Connection is broken.</arg>
+</arguments>
+<msg timestamp="20180428 16:20:21.872" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20180428 16:20:21.873" starttime="20180428 16:20:21.872"></status>
+</kw>
+<doc>This test case checks if application is up.</doc>
+<status status="PASS" endtime="20180428 16:20:21.873" critical="yes" starttime="20180428 16:20:21.857"></status>
+</test>
+<test id="s1-s1-s1-t2" name="getBookings">
+<kw type="setup" name="Post Booking" library="restfulBookerConnection">
+<msg timestamp="20180428 16:20:21.884" level="INFO">{u'bookingid': 80, u'booking': {u'bookingdates': {u'checkin': u'2018-02-23', u'checkout': u'2018-10-23'}, u'totalprice': 111, u'firstname': u'Tom', u'lastname': u'Hanks', u'additionalneeds': u'Breakfast', u'depositpaid': True}}</msg>
+<status status="PASS" endtime="20180428 16:20:21.884" starttime="20180428 16:20:21.874"></status>
+</kw>
+<kw name="Get Bookings" library="restfulBookerConnection">
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.893" level="INFO">[{u'bookingid': 7}, {u'bookingid': 27}, {u'bookingid': 6}, {u'bookingid': 79}, {u'bookingid': 30}, {u'bookingid': 28}, {u'bookingid': 9}, {u'bookingid': 29}, {u'bookingid': 80}, {u'bookingid': 5}, {u'bookingid': 20}, {u'bookingid': 32}, {u'bookingid': 77}]</msg>
+<msg timestamp="20180428 16:20:21.893" level="INFO">${response} = [{u'bookingid': 7}, {u'bookingid': 27}, {u'bookingid': 6}, {u'bookingid': 79}, {u'bookingid': 30}, {u'bookingid': 28}, {u'bookingid': 9}, {u'bookingid': 29}, {u'bookingid': 80}, {u'bookingid': 5}, {u'...</msg>
+<status status="PASS" endtime="20180428 16:20:21.894" starttime="20180428 16:20:21.885"></status>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<doc>Verifies that the given item is not empty.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>ERROR: Empty Response</arg>
+</arguments>
+<msg timestamp="20180428 16:20:21.895" level="INFO">Length is 13</msg>
+<status status="PASS" endtime="20180428 16:20:21.896" starttime="20180428 16:20:21.894"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:21.896" critical="yes" starttime="20180428 16:20:21.874"></status>
+</test>
+<test id="s1-s1-s1-t3" name="deleteBooking">
+<kw name="Post Booking" library="restfulBookerConnection">
+<assign>
+<var>${idToDelete}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.907" level="INFO">{u'bookingid': 81, u'booking': {u'bookingdates': {u'checkin': u'2018-02-23', u'checkout': u'2018-10-23'}, u'totalprice': 111, u'firstname': u'Tom', u'lastname': u'Hanks', u'additionalneeds': u'Breakfast', u'depositpaid': True}}</msg>
+<msg timestamp="20180428 16:20:21.907" level="INFO">${idToDelete} = 81</msg>
+<status status="PASS" endtime="20180428 16:20:21.908" starttime="20180428 16:20:21.897"></status>
+</kw>
+<kw name="Delete Booking" library="restfulBookerConnection">
+<arguments>
+<arg>${idToDelete}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.931" level="INFO">{u'token': u'7419f3a82e69e82'}
+Generated token: 7419f3a82e69e82</msg>
+<msg timestamp="20180428 16:20:21.932" level="INFO">${response} = 201</msg>
+<status status="PASS" endtime="20180428 16:20:21.932" starttime="20180428 16:20:21.908"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>204</arg>
+<arg>ERROR: Wrong response code</arg>
+</arguments>
+<msg timestamp="20180428 16:20:21.935" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20180428 16:20:21.935" level="FAIL">ERROR: Wrong response code: 201 != 204</msg>
+<status status="FAIL" endtime="20180428 16:20:21.936" starttime="20180428 16:20:21.933"></status>
+</kw>
+<status status="FAIL" endtime="20180428 16:20:21.937" critical="yes" starttime="20180428 16:20:21.896">ERROR: Wrong response code: 201 != 204</status>
+</test>
+<test id="s1-s1-s1-t4" name="checkAuthentication">
+<kw name="Authentication with valid credentails">
+<arguments>
+<arg>${correctUser}</arg>
+<arg>${correctPassword}</arg>
+</arguments>
+<kw name="Authentication" library="restfulBookerConnection">
+<arguments>
+<arg>${user}</arg>
+<arg>${password}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.950" level="INFO">{u'token': u'63e1a8614fe7902'}
+Generated token: 63e1a8614fe7902</msg>
+<msg timestamp="20180428 16:20:21.951" level="INFO">${response} = {u'token': u'63e1a8614fe7902'}</msg>
+<status status="PASS" endtime="20180428 16:20:21.952" starttime="20180428 16:20:21.939"></status>
+</kw>
+<kw name="Token is generated">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>token</arg>
+<arg>ERROR: Token not generated</arg>
+</arguments>
+<status status="PASS" endtime="20180428 16:20:21.954" starttime="20180428 16:20:21.953"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:21.954" starttime="20180428 16:20:21.952"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:21.955" starttime="20180428 16:20:21.938"></status>
+</kw>
+<kw name="Authentication with invalid credentails">
+<arguments>
+<arg>${correctUser}</arg>
+<arg>${incorrectPassword}</arg>
+</arguments>
+<kw name="Authentication" library="restfulBookerConnection">
+<arguments>
+<arg>${user}</arg>
+<arg>${password}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.966" level="INFO">{u'reason': u'Bad credentials'}
+Error: Bad credentials</msg>
+<msg timestamp="20180428 16:20:21.966" level="INFO">${response} = {u'reason': u'Bad credentials'}</msg>
+<status status="PASS" endtime="20180428 16:20:21.967" starttime="20180428 16:20:21.956"></status>
+</kw>
+<kw name="Token is not generated">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>reason</arg>
+<arg>ERROR: Wrong response.</arg>
+</arguments>
+<status status="PASS" endtime="20180428 16:20:21.968" starttime="20180428 16:20:21.968"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:21.968" starttime="20180428 16:20:21.967"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:21.969" starttime="20180428 16:20:21.956"></status>
+</kw>
+<kw name="Authentication with invalid credentails">
+<arguments>
+<arg>${correctUser}</arg>
+<arg>${incorrectPassword}</arg>
+</arguments>
+<kw name="Authentication" library="restfulBookerConnection">
+<arguments>
+<arg>${user}</arg>
+<arg>${password}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.981" level="INFO">{u'reason': u'Bad credentials'}
+Error: Bad credentials</msg>
+<msg timestamp="20180428 16:20:21.982" level="INFO">${response} = {u'reason': u'Bad credentials'}</msg>
+<status status="PASS" endtime="20180428 16:20:21.982" starttime="20180428 16:20:21.970"></status>
+</kw>
+<kw name="Token is not generated">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>reason</arg>
+<arg>ERROR: Wrong response.</arg>
+</arguments>
+<status status="PASS" endtime="20180428 16:20:21.985" starttime="20180428 16:20:21.984"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:21.985" starttime="20180428 16:20:21.983"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:21.986" starttime="20180428 16:20:21.969"></status>
+</kw>
+<kw name="Authentication with invalid credentails">
+<arguments>
+<arg>${incorrectPassword}</arg>
+<arg>${incorrectPassword}</arg>
+</arguments>
+<kw name="Authentication" library="restfulBookerConnection">
+<arguments>
+<arg>${user}</arg>
+<arg>${password}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:21.998" level="INFO">{u'reason': u'Bad credentials'}
+Error: Bad credentials</msg>
+<msg timestamp="20180428 16:20:21.998" level="INFO">${response} = {u'reason': u'Bad credentials'}</msg>
+<status status="PASS" endtime="20180428 16:20:21.999" starttime="20180428 16:20:21.986"></status>
+</kw>
+<kw name="Token is not generated">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>reason</arg>
+<arg>ERROR: Wrong response.</arg>
+</arguments>
+<status status="PASS" endtime="20180428 16:20:22.001" starttime="20180428 16:20:22.000"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.002" starttime="20180428 16:20:21.999"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.002" starttime="20180428 16:20:21.986"></status>
+</kw>
+<kw name="Authentication with invalid credentails">
+<arguments>
+<arg>${EMPTY}</arg>
+<arg>${incorrectPassword}</arg>
+</arguments>
+<kw name="Authentication" library="restfulBookerConnection">
+<arguments>
+<arg>${user}</arg>
+<arg>${password}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.011" level="INFO">{u'reason': u'Bad credentials'}
+Error: Bad credentials</msg>
+<msg timestamp="20180428 16:20:22.012" level="INFO">${response} = {u'reason': u'Bad credentials'}</msg>
+<status status="PASS" endtime="20180428 16:20:22.013" starttime="20180428 16:20:22.003"></status>
+</kw>
+<kw name="Token is not generated">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>reason</arg>
+<arg>ERROR: Wrong response.</arg>
+</arguments>
+<status status="PASS" endtime="20180428 16:20:22.015" starttime="20180428 16:20:22.014"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.016" starttime="20180428 16:20:22.013"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.016" starttime="20180428 16:20:22.003"></status>
+</kw>
+<kw name="Authentication with invalid credentails">
+<arguments>
+<arg>${correctUser}</arg>
+<arg>${EMPTY}</arg>
+</arguments>
+<kw name="Authentication" library="restfulBookerConnection">
+<arguments>
+<arg>${user}</arg>
+<arg>${password}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.024" level="INFO">{u'reason': u'Bad credentials'}
+Error: Bad credentials</msg>
+<msg timestamp="20180428 16:20:22.025" level="INFO">${response} = {u'reason': u'Bad credentials'}</msg>
+<status status="PASS" endtime="20180428 16:20:22.025" starttime="20180428 16:20:22.017"></status>
+</kw>
+<kw name="Token is not generated">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>reason</arg>
+<arg>ERROR: Wrong response.</arg>
+</arguments>
+<status status="PASS" endtime="20180428 16:20:22.026" starttime="20180428 16:20:22.026"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.027" starttime="20180428 16:20:22.025"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.027" starttime="20180428 16:20:22.016"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.028" critical="yes" starttime="20180428 16:20:21.938"></status>
+</test>
+<test id="s1-s1-s1-t5" name="postBooking">
+<kw name="CountExpectedNumbersOfBookings">
+<kw name="Get Bookings Ids" library="restfulBookerConnection">
+<assign>
+<var>${baseBookingsList}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.041" level="INFO">[{u'bookingid': 7}, {u'bookingid': 27}, {u'bookingid': 6}, {u'bookingid': 79}, {u'bookingid': 30}, {u'bookingid': 28}, {u'bookingid': 9}, {u'bookingid': 29}, {u'bookingid': 80}, {u'bookingid': 5}, {u'bookingid': 20}, {u'bookingid': 32}, {u'bookingid': 77}]</msg>
+<msg timestamp="20180428 16:20:22.042" level="INFO">${baseBookingsList} = [5, 6, 7, 9, 20, 27, 28, 29, 30, 32, 77, 79, 80]</msg>
+<status status="PASS" endtime="20180428 16:20:22.042" starttime="20180428 16:20:22.032"></status>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<arguments>
+<arg>${baseBookingsList}</arg>
+</arguments>
+<assign>
+<var>${numbeOfBookingsBeforePost}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.044" level="INFO">Length is 13</msg>
+<msg timestamp="20180428 16:20:22.044" level="INFO">${numbeOfBookingsBeforePost} = 13</msg>
+<status status="PASS" endtime="20180428 16:20:22.045" starttime="20180428 16:20:22.043"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>${numbeOfBookingsBeforePost}+${1}</arg>
+</arguments>
+<assign>
+<var>${expectedNumberOfBookings}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.046" level="INFO">${expectedNumberOfBookings} = 14</msg>
+<status status="PASS" endtime="20180428 16:20:22.046" starttime="20180428 16:20:22.045"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${expectedNumberOfBookings}</arg>
+</arguments>
+<msg timestamp="20180428 16:20:22.049" level="INFO">${expectedNumberOfBookings} = 14</msg>
+<status status="PASS" endtime="20180428 16:20:22.050" starttime="20180428 16:20:22.047"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.051" starttime="20180428 16:20:22.031"></status>
+</kw>
+<kw name="CountExpectedBookingId">
+<kw name="Get Last Booking Id" library="restfulBookerConnection">
+<assign>
+<var>${lastId}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.060" level="INFO">[{u'bookingid': 7}, {u'bookingid': 27}, {u'bookingid': 6}, {u'bookingid': 79}, {u'bookingid': 30}, {u'bookingid': 28}, {u'bookingid': 9}, {u'bookingid': 29}, {u'bookingid': 80}, {u'bookingid': 5}, {u'bookingid': 20}, {u'bookingid': 32}, {u'bookingid': 77}]</msg>
+<msg timestamp="20180428 16:20:22.061" level="INFO">${lastId} = 80</msg>
+<status status="PASS" endtime="20180428 16:20:22.061" starttime="20180428 16:20:22.052"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>${lastId}+${1}</arg>
+</arguments>
+<assign>
+<var>${expectedId}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.064" level="INFO">${expectedId} = 81</msg>
+<status status="PASS" endtime="20180428 16:20:22.064" starttime="20180428 16:20:22.063"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${expectedId}</arg>
+</arguments>
+<msg timestamp="20180428 16:20:22.065" level="INFO">${expectedId} = 81</msg>
+<status status="PASS" endtime="20180428 16:20:22.067" starttime="20180428 16:20:22.065"></status>
+</kw>
+<status status="PASS" endtime="20180428 16:20:22.067" starttime="20180428 16:20:22.051"></status>
+</kw>
+<kw name="RunPostBookingAction">
+<arguments>
+<arg>${expectedId}</arg>
+</arguments>
+<kw name="Post Booking" library="restfulBookerConnection">
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.076" level="INFO">{u'bookingid': 82, u'booking': {u'bookingdates': {u'checkin': u'2018-02-23', u'checkout': u'2018-10-23'}, u'totalprice': 111, u'firstname': u'Tom', u'lastname': u'Hanks', u'additionalneeds': u'Breakfast', u'depositpaid': True}}</msg>
+<msg timestamp="20180428 16:20:22.076" level="INFO">${response} = 82</msg>
+<status status="PASS" endtime="20180428 16:20:22.076" starttime="20180428 16:20:22.068"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>${expectedId}</arg>
+<arg>ERROR: Wrong booking id</arg>
+</arguments>
+<msg timestamp="20180428 16:20:22.077" level="FAIL">ERROR: Wrong booking id: 82 != 81</msg>
+<status status="FAIL" endtime="20180428 16:20:22.078" starttime="20180428 16:20:22.077"></status>
+</kw>
+<status status="FAIL" endtime="20180428 16:20:22.078" starttime="20180428 16:20:22.068"></status>
+</kw>
+<status status="FAIL" endtime="20180428 16:20:22.080" critical="yes" starttime="20180428 16:20:22.030">ERROR: Wrong booking id: 82 != 81</status>
+</test>
+<test id="s1-s1-s1-t6" name="putBooking">
+<kw name="Get Last Booking Id" library="restfulBookerConnection">
+<assign>
+<var>${lastId}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.092" level="INFO">[{u'bookingid': 7}, {u'bookingid': 27}, {u'bookingid': 6}, {u'bookingid': 79}, {u'bookingid': 30}, {u'bookingid': 28}, {u'bookingid': 9}, {u'bookingid': 29}, {u'bookingid': 80}, {u'bookingid': 5}, {u'bookingid': 82}, {u'bookingid': 20}, {u'bookingid': 32}, {u'bookingid': 77}]</msg>
+<msg timestamp="20180428 16:20:22.093" level="INFO">${lastId} = 82</msg>
+<status status="PASS" endtime="20180428 16:20:22.093" starttime="20180428 16:20:22.083"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>${lastId}+${1}</arg>
+</arguments>
+<assign>
+<var>${newId}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.096" level="INFO">${newId} = 83</msg>
+<status status="PASS" endtime="20180428 16:20:22.096" starttime="20180428 16:20:22.094"></status>
+</kw>
+<kw name="Put Booking" library="restfulBookerConnection">
+<arguments>
+<arg>${newId}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180428 16:20:22.116" level="INFO">{u'token': u'03498ae9df0b20e'}
+Generated token: 03498ae9df0b20e</msg>
+<msg timestamp="20180428 16:20:22.118" level="FAIL">ValueError: No JSON object could be decoded</msg>
+<status status="FAIL" endtime="20180428 16:20:22.118" starttime="20180428 16:20:22.097"></status>
+</kw>
+<status status="FAIL" endtime="20180428 16:20:22.119" critical="yes" starttime="20180428 16:20:22.082">ValueError: No JSON object could be decoded</status>
+</test>
+<status status="FAIL" endtime="20180428 16:20:22.119" starttime="20180428 16:20:21.600"></status>
+</suite>
+<status status="FAIL" endtime="20180428 16:20:22.123" starttime="20180428 16:20:21.598"></status>
+</suite>
+<status status="FAIL" endtime="20180428 16:20:22.125" starttime="20180428 16:20:21.573"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="3" pass="3">Critical Tests</stat>
+<stat fail="3" pass="3">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="3" id="s1" name="GIT TEST" pass="3">GIT TEST</stat>
+<stat fail="3" id="s1-s1" name="Tests Booker" pass="3">GIT TEST.Tests Booker</stat>
+<stat fail="3" id="s1-s1-s1" name="Test Suite 1" pass="3">GIT TEST.Tests Booker.Test Suite 1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
