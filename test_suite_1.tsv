@@ -16,11 +16,13 @@ getBookings	[Setup]	postBooking
 	${response}=	getBookings					
 	Should Not Be Empty	${response}	ERROR: Empty Response				
 							
-deleteBooking	${idToDelete}=	postBooking					
+deleteBooking	[Documentation]	This test case checks if delete Booking method works correctly.					
+	${idToDelete}=	postBooking					
 	${response}=	deleteBooking	${idToDelete}				
 	Should Be Equal As Integers	${response}	204	ERROR: Wrong response code			
 							
-checkAuthentication	Authentication with valid credentails	${correctUser}	${correctPassword}				
+checkAuthentication	[Documentation]	This test case checks if authentication works correctly for correct credentials data. Test also checks if token is not generate when incorrect credentials are given.					
+	Authentication with valid credentails	${correctUser}	${correctPassword}				
 	Authentication with invalid credentails	${correctUser}	${incorrectPassword}				
 	Authentication with invalid credentails	${correctUser}	${incorrectPassword}				
 	Authentication with invalid credentails	${incorrectPassword}	${incorrectPassword}				

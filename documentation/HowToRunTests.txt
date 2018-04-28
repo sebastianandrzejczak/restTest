@@ -34,6 +34,44 @@ Instruction method 2 - run test from RIDE editor:
 5.2.Select from left side menu "Test Suite 1" and go to "Run" Tab on the right side menu.
 5.3 Click "Start" and wait for tests results
 
+Sample test results:
+=================================================================================================
+GIT TEST                                                                                         
+=================================================================================================
+GIT TEST.restTest                                                                                
+=================================================================================================
+GIT TEST.restTest.Test Suite 1                                                                   
+=================================================================================================
+checkIfApplicationResponse :: This test case checks if application is up.                | PASS |
+-------------------------------------------------------------------------------------------------
+getBookings                                                                              | PASS |
+-------------------------------------------------------------------------------------------------
+deleteBooking :: This test case checks if delete Booking method works correctly.         | FAIL |
+ERROR: Wrong response code: 201 != 204
+-------------------------------------------------------------------------------------------------
+checkAuthentication :: This test case checks if authentication works correctly for co... | PASS |
+-------------------------------------------------------------------------------------------------
+postBooking                                                                              | FAIL |
+ERROR: Wrong booking id: 25 != 24
+-------------------------------------------------------------------------------------------------
+GIT TEST.restTest.Test Suite 1                                                           | FAIL |
+5 critical tests, 3 passed, 2 failed
+5 tests total, 3 passed, 2 failed
+=================================================================================================
+GIT TEST.restTest                                                                        | FAIL |
+5 critical tests, 3 passed, 2 failed
+5 tests total, 3 passed, 2 failed
+=================================================================================================
+GIT TEST                                                                                 | FAIL |
+5 critical tests, 3 passed, 2 failed
+5 tests total, 3 passed, 2 failed
+=================================================================================================
+Output:  c:\users\seandrze\appdata\local\temp\RIDExbsi62.d\output.xml
+Log:     c:\users\seandrze\appdata\local\temp\RIDExbsi62.d\log.html
+Report:  c:\users\seandrze\appdata\local\temp\RIDExbsi62.d\report.html
+
+test finished 20180428 21:47:21
+
 
 
 
