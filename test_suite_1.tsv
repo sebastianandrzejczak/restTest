@@ -1,0 +1,73 @@
+*Settings*							
+Library	library/restfulBookerConnection.py						
+							
+*Variables*							
+${correctUser}	admin						
+${incorrectUser}	wronguser						
+${correctPassword}	password123						
+${incorrectPassword}	wrongpassword123						
+							
+*Test Cases*							
+checkIfApplicationResponse	[Documentation]	This test case checks if application is up.					
+	${response}=	pingWebservice					
+	Should Be Equal As Integers	${response}	200	ERROR: Connection is broken.			
+							
+getBookings	[Setup]	postBooking					
+	${response}=	getBookings					
+	Should Not Be Empty	${response}	ERROR: Empty Response				
+							
+deleteBooking	${idToDelete}=	postBooking					
+	${response}=	deleteBooking	${idToDelete}				
+	Should Be Equal As Integers	${response}	204	ERROR: Wrong response code			
+							
+checkAuthentication	Authentication with valid credentails	${correctUser}	${correctPassword}				
+	Authentication with invalid credentails	${correctUser}	${incorrectPassword}				
+	Authentication with invalid credentails	${correctUser}	${incorrectPassword}				
+	Authentication with invalid credentails	${incorrectPassword}	${incorrectPassword}				
+	Authentication with invalid credentails	${EMPTY}	${incorrectPassword}				
+	Authentication with invalid credentails	${correctUser}	${EMPTY}				
+							
+postBooking	CountExpectedNumbersOfBookings						
+	CountExpectedBookingId						
+	RunPostBookingAction	${expectedId}					
+	CountNumbersOfBookingsAfterPost						
+	CompareResults						
+							
+putBooking	${lastId}=	getLastBookingId					
+	${newId}=	Evaluate	${lastId}+${1}				
+	${response}=	putBooking	${newId}				
+	Should Be Equal As Integers	${response}	200	ERROR: Wrong response code			
+							
+*Keywords*							
+Authentication with valid credentails	[Arguments]	${user}	${password}				
+	${response}=	authentication	${user}	${password}			
+	Token is generated	${response}					
+							
+Authentication with invalid credentails	[Arguments]	${user}	${password}				
+	${response}=	authentication	${user}	${password}			
+	Token is not generated	${response}					
+							
+Token is generated	[Arguments]	${response}					
+	Should contain	${response}	token	ERROR: Token not generated			
+							
+Token is not generated	[Arguments]	${response}					
+	Should contain	${response}	reason	ERROR: Wrong response.			
+							
+CountExpectedNumbersOfBookings	${baseBookingsList}=	getBookingsIds					
+	${numbeOfBookingsBeforePost}=	getLength	${baseBookingsList}				
+	${expectedNumberOfBookings}	Evaluate	${numbeOfBookingsBeforePost}+${1}				
+	Set Test Variable	${expectedNumberOfBookings}					
+							
+CountExpectedBookingId	${lastId}=	getLastBookingId					
+	${expectedId}=	Evaluate	${lastId}+${1}				
+	Set Test Variable	${expectedId}					
+							
+RunPostBookingAction	[Arguments]	${expectedId}					
+	${response}=	postBooking					
+	Should Be Equal As Integers	${response}	${expectedId}	ERROR: Wrong booking id			
+							
+CountNumbersOfBookingsAfterPost	${updatedBookingsList}=	getBookingsIds					
+	${numbeOfBookingsAfterPost}=	getLength	${updatedBookingsList}				
+	Set Test Variable	${numbeOfBookingsAfterPost}					
+							
+CompareResults	ShouldBeEqual	${expectedNumberOfBookings}	${numbeOfBookingsAfterPost}	ERROR: New booking not added			
