@@ -1,0 +1,39 @@
+STEP 1: TESTING ENVIRONMENT
+Requirements: 
+- Docker 17.09.0
+- Docker Compose 1.16.1
+
+Prepare testing environment according to instruction from https://github.com/mwinteringham/restful-booker/blob/master/README.md
+Please choose option with docker.
+APIs should be exposed on http://localhost:3001
+
+STEP 2: TESTING TOOLS
+Requirements for tests run:
+- Python version 2.7
+- Robotframework (3.0.2)  http://robotframework.org/#introduction
+- robotframework-ride (1.5.2.1) https://github.com/robotframework/RIDE/wiki
+
+--------------------------------------------------------------------------------------------------------
+Instruction method 1 - run test from console:
+1. Install Python v 2.7
+2. Install Robotframework v 3.0.2  [http://robotframework.org/#introduction]
+3. Download project with test data from GIT
+4. Open Windows console - cmd.exe
+4.1 Go to the directory with test_suite_1.tsv and run command:  python -m robot test_suite_1.tsv
+[http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#executing-robot-framework]
+4.2 Check tests results
+
+--------------------------------------------------------------------------------------------------------
+Instruction method 2 - run test from RIDE editor:
+1. Install Python v 2.7
+2. Install Robotframework v 3.0.2  [http://robotframework.org/#introduction]
+3. Install Ride - test data editor for Robot Framework test data. [https://github.com/robotframework/RIDE/wiki]
+4. Download project with test data from GIT
+5. Open Ride editor
+5.1 Open Test Suite (shortcut: CTRL+o ) and find on your disk test_suite_1.tsv
+5.2.Select from left side menu "Test Suite 1" and go to "Run" Tab on the right side menu.
+5.3 Click "Start" and wait for tests results
+
+
+
+
