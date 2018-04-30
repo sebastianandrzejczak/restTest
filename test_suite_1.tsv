@@ -1,5 +1,6 @@
 *Settings*							
 Library	library/restfulBookerConnection.py						
+Variables	testdata/payloads.py						
 							
 *Variables*							
 ${correctUser}	admin						
@@ -17,7 +18,7 @@ getBookings	[Setup]	postBooking
 	Should Not Be Empty	${response}	ERROR: Empty Response				
 							
 deleteBooking	[Documentation]	This test case checks if delete Booking method works correctly.					
-	${idToDelete}=	postBooking					
+	${idToDelete}=	postBooking	${BOOKING_DELETE_CASE}				
 	${response}=	deleteBooking	${idToDelete}				
 	Should Be Equal As Integers	${response}	204	ERROR: Wrong response code			
 							
@@ -37,7 +38,7 @@ postBooking	CountExpectedNumbersOfBookings
 							
 putBooking	${lastId}=	getLastBookingId					
 	${newId}=	Evaluate	${lastId}+${1}				
-	${response}=	putBooking	${newId}				
+	${response}=	putBooking	${newId}	${BOOKING_PUT_CASE}			
 	Should Be Equal As Integers	${response}	200	ERROR: Wrong response code			
 							
 *Keywords*							
@@ -65,7 +66,7 @@ CountExpectedBookingId	${lastId}=	getLastBookingId
 	Set Test Variable	${expectedId}					
 							
 RunPostBookingAction	[Arguments]	${expectedId}					
-	${response}=	postBooking					
+	${response}=	postBooking	${NEW_BOOKING_DETAILS_1}				
 	Should Be Equal As Integers	${response}	${expectedId}	ERROR: Wrong booking id			
 							
 CountNumbersOfBookingsAfterPost	${updatedBookingsList}=	getBookingsIds					

@@ -49,19 +49,9 @@ class restfulBookerConnection():
         print str(resp.json())
         return resp.json()
 
-    def postBooking(self):
+    def postBooking(self, booking):
         url=webServiceAddress+"/booking"
-        payload= {
-      "firstname" : "Tom",
-        "lastname" : "Hanks",
-        "totalprice" : 111,
-        "depositpaid" : True,
-        "additionalneeds" : "Breakfast",
-        "bookingdates" : {
-            "checkin" : "2018-02-23",
-            "checkout" : "2018-10-23"
-        }
-    }
+        payload = booking
         resp = requests.post(url,json=payload)
         if resp.status_code != 200: # This means something went wrong.
             raise Exception('POST /booking/ {}'.format(resp.status_code))
@@ -90,20 +80,10 @@ class restfulBookerConnection():
 
         return resp.json()
 
-    def putBooking(self,id):
+    def putBooking(self,id, booking):
         url=webServiceAddress+"/booking/%s" %(id)
         auth_token=self.authentication("admin","password123")
-        payload = {
-            "firstname": "Tom",
-            "lastname": "Hanks",
-            "totalprice": 111,
-            "depositpaid": True,
-            "additionalneeds": "Breakfast",
-            "bookingdates": {
-                "checkin": "2018-02-23",
-                "checkout": "2018-10-23"
-            }
-        }
+        payload = booking
         resp = requests.put(url,cookies=auth_token, json=payload)
         if resp.status_code != 405: # This means something went wrong.
             raise Exception('PUT /booking/%s {}'.format(resp.status_code) % (id))
